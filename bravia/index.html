@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>Kura Streaming</title>
-  <!-- Importando fontes com suporte a navegadores legados (Google Fonts) -->
+  <!-- Font imports with legacy browser support (Google Fonts) -->
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600,800|Orbitron:700,900|Noto+Sans+JP:700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- Tela de Carregamento (Splash Screen) -->
+  <!-- Loading Screen (Splash Screen) -->
   <div id="splash-screen" class="splash-screen">
     <div class="splash-content">
       <img src="icons/kura-icon.svg" class="splash-logo" alt="Kura Logo" />
@@ -18,31 +18,51 @@
     </div>
   </div>
 
-  <!-- Barra Lateral de Navegação (Menu de Streaming) -->
+  <!-- Navigation Sidebar (Streaming Menu) -->
   <div class="sidebar" id="sidebar-menu">
     <div class="sidebar-logo">
       <img src="icons/kura-icon.svg" class="sidebar-logo-img" alt="Kura Icon" />
     </div>
     <div class="sidebar-items">
       <div class="sidebar-item active" id="sb-home" data-target="home">
-        <span class="sb-icon">⌂</span>
-        <span class="sb-label">Início</span>
+        <span class="sb-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" style="display:inline-block;vertical-align:middle;">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+        </span>
+        <span class="sb-label">Home</span>
       </div>
       <div class="sidebar-item" id="sb-animes" data-target="animes">
-        <span class="sb-icon">📺</span>
-        <span class="sb-label">Animes</span>
+        <span class="sb-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" style="display:inline-block;vertical-align:middle;">
+            <path d="M21 6h-7.59l3.29-3.29L16 2l-4 4-4-4-.71.71L10.59 6H3c-1.1 0-2 .89-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.11-.9-2-2-2zm0 14H3V8h18v12z"/>
+          </svg>
+        </span>
+        <span class="sb-label">Anime</span>
       </div>
       <div class="sidebar-item" id="sb-series" data-target="series">
-        <span class="sb-icon">🎬</span>
-        <span class="sb-label">Séries</span>
+        <span class="sb-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" style="display:inline-block;vertical-align:middle;">
+            <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
+          </svg>
+        </span>
+        <span class="sb-label">Series</span>
       </div>
       <div class="sidebar-item" id="sb-filmes" data-target="filmes">
-        <span class="sb-icon">🎥</span>
-        <span class="sb-label">Filmes</span>
+        <span class="sb-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" style="display:inline-block;vertical-align:middle;">
+            <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+          </svg>
+        </span>
+        <span class="sb-label">Movies</span>
       </div>
       <div class="sidebar-item" id="sb-search" data-target="search">
-        <span class="sb-icon">⌕</span>
-        <span class="sb-label">Busca</span>
+        <span class="sb-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" style="display:inline-block;vertical-align:middle;">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+        </span>
+        <span class="sb-label">Search</span>
       </div>
     </div>
     <div class="sidebar-footer">
@@ -50,15 +70,15 @@
     </div>
   </div>
 
-  <!-- Container Principal das Visualizações (Deslocado para a direita da sidebar) -->
+  <!-- Main Content Container (offset right of the sidebar) -->
   <div id="main-content">
 
-    <!-- VISUALIZAÇÃO: DETALHES DO TÍTULO (DETALHES + PIP) -->
+    <!-- VIEW: TITLE DETAILS (INFO + PIP) -->
     <div id="view-details" class="view">
       <div id="details-backdrop" class="details-backdrop-bg"></div>
       <div class="details-overlay"></div>
       <div class="details-layout">
-        <!-- Coluna da Esquerda: Info, Sinopse e Combos -->
+        <!-- Left Column: Info, Synopsis and Combos -->
         <div class="details-left">
           <div class="eyebrow" id="details-eyebrow">ANIME</div>
           <h1 id="details-title">Solo Leveling</h1>
@@ -67,23 +87,23 @@
             <span class="meta-separator">·</span>
             <span id="details-year">2024</span>
             <span class="meta-separator">·</span>
-            <span id="details-genres">Ação, Aventura</span>
+            <span id="details-genres">Action, Adventure</span>
           </div>
-          <p id="details-description">O caçador mais fraco da humanidade, Sung Jin-woo, ganha a chance de subir de nível de forma secreta e ilimitada em um mundo perigoso cheio de dungeons.</p>
-          
+          <p id="details-description">The weakest hunter alive, Sung Jin-woo, gains a secret chance to level up without limits in a dangerous world full of dungeons.</p>
+
           <div class="details-combos">
             <div class="combo-box" id="combo-audio">
-              <span class="combo-label">Áudio:</span>
-              <span class="combo-value" id="val-audio">Japonês (Original)</span>
+              <span class="combo-label">Audio:</span>
+              <span class="combo-value" id="val-audio">Japanese (Original)</span>
             </div>
             <div class="combo-box" id="combo-subtitle">
-              <span class="combo-label">Legenda:</span>
-              <span class="combo-value" id="val-subtitle">Português (SRT)</span>
+              <span class="combo-label">Subtitle:</span>
+              <span class="combo-value" id="val-subtitle">Portuguese (SRT)</span>
             </div>
           </div>
         </div>
 
-        <!-- Coluna da Direita: Mini Player (PiP) -->
+        <!-- Right Column: PiP Mini Player -->
         <div class="details-right">
           <div class="pip-container" id="details-pip-player">
             <video id="kuraPipPlayer" width="560" height="315" muted loop>
@@ -91,52 +111,52 @@
             </video>
             <div class="pip-overlay">
               <span class="pip-icon">⛶</span>
-              <span class="pip-text">Pressione ENTER para Tela Cheia</span>
+              <span class="pip-text">Press ENTER for Full Screen</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- MODAL DE SELEÇÃO SUSPENSO (ÁUDIO OU LEGENDA) -->
+    <!-- FLOATING SELECTION MODAL (AUDIO OR SUBTITLE) -->
     <div id="selection-modal" class="options-modal">
-      <div class="modal-title" id="modal-title-text">Selecionar Opção</div>
+      <div class="modal-title" id="modal-title-text">Select Option</div>
       <div class="modal-list" id="modal-options-list">
-        <!-- Opções injetadas via JS -->
+        <!-- Options injected via JS -->
       </div>
     </div>
 
-    <!-- VISUALIZAÇÃO: CATEGORIAS / FILTROS -->
+    <!-- VIEW: CATALOG / CATEGORY BROWSE -->
     <div id="view-categories" class="view">
       <div class="categories-header">
         <div class="categories-title-container">
-          <h2 id="categories-title">Catálogo: Animes</h2>
+          <h2 id="categories-title">Catalog: Anime</h2>
           <div id="catalog-filter-btn" class="catalog-filter-btn">
-            <span class="btn-icon">🔍</span> Filtrar no Buscar
+            <span class="btn-icon">🔍</span> Filter in Search
           </div>
         </div>
       </div>
       <div class="categories-grid-viewport">
         <div class="categories-grid" id="categories-items-grid">
-          <!-- Grade de Cards via JS -->
+          <!-- Card grid populated via JS -->
         </div>
       </div>
     </div>
 
-    <!-- VISUALIZAÇÃO: HOME -->
+    <!-- VIEW: HOME -->
     <div id="view-home" class="view active">
-      <!-- Seção Hero: Destaque Principal -->
+      <!-- Hero Section: Featured Title -->
       <div class="hero" id="hero-banner">
         <div class="hero-glow-left"></div>
         <div class="hero-content">
           <div id="hero-details-wrapper">
-            <div class="eyebrow" id="hero-eyebrow">Destaque em Alta</div>
+            <div class="eyebrow" id="hero-eyebrow">Top Pick</div>
             <h1 id="hero-title">Solo Leveling</h1>
-            <p id="hero-description">O caçador mais fraco da humanidade, Sung Jin-woo, ganha a chance de subir de nível de forma secreta e ilimitada em um mundo perigoso cheio de dungeons.</p>
+            <p id="hero-description">The weakest hunter alive, Sung Jin-woo, gains a secret chance to level up without limits in a dangerous world full of dungeons.</p>
           </div>
           <div class="buttons">
-            <div class="btn" id="hero-btn-play">▶ Assistir agora</div>
-            <div class="btn alt" id="hero-btn-list">＋ Minha lista</div>
+            <div class="btn" id="hero-btn-play">▶ Watch Now</div>
+            <div class="btn alt" id="hero-btn-list">＋ My List</div>
           </div>
         </div>
         <div class="hero-feature">
@@ -144,36 +164,36 @@
         </div>
       </div>
 
-      <!-- Container de Trilhos com Rolagem Vertical -->
+      <!-- Vertically Scrollable Rails Container -->
       <div class="rails-viewport" id="rails-viewport">
         <div class="rails-y-container" id="rails-y-container">
-          
-          <!-- Trilho 1: Animes -->
+
+          <!-- Rail 1: Anime -->
           <div class="section" id="section-0">
-            <h3 class="section-title">Animes em Alta</h3>
+            <h3 class="section-title">Trending Anime</h3>
             <div class="rail-container">
               <div class="rail" id="rail-0">
-                <!-- Preenchido via JS -->
+                <!-- Populated via JS -->
               </div>
             </div>
           </div>
 
-          <!-- Trilho 2: Séries -->
+          <!-- Rail 2: Series -->
           <div class="section" id="section-1">
-            <h3 class="section-title">Séries Recomendas</h3>
+            <h3 class="section-title">Recommended Series</h3>
             <div class="rail-container">
               <div class="rail" id="rail-1">
-                <!-- Preenchido via JS -->
+                <!-- Populated via JS -->
               </div>
             </div>
           </div>
 
-          <!-- Trilho 3: Filmes -->
+          <!-- Rail 3: Movies -->
           <div class="section" id="section-2">
-            <h3 class="section-title">Filmes Populares</h3>
+            <h3 class="section-title">Popular Movies</h3>
             <div class="rail-container">
               <div class="rail" id="rail-2">
-                <!-- Preenchido via JS -->
+                <!-- Populated via JS -->
               </div>
             </div>
           </div>
@@ -182,50 +202,50 @@
       </div>
     </div>
 
-    <!-- VISUALIZAÇÃO: BUSCA -->
+    <!-- VIEW: SEARCH -->
     <div id="view-search" class="view">
       <div class="search-layout">
-        <!-- Coluna da Esquerda: Campo de Busca e Teclado -->
+        <!-- Left Column: Search Field and Keyboard -->
         <div class="search-left-panel">
           <div class="search-input-box" id="search-box">
             <span class="search-icon">⌕</span>
-            <div class="search-placeholder" id="search-input-text">Digite para buscar...</div>
+            <div class="search-placeholder" id="search-input-text">Type to search...</div>
           </div>
-          
-          <!-- Teclado Virtual para Controle Remoto -->
+
+          <!-- Virtual Keyboard for Remote Control -->
           <div class="keyboard" id="virtual-keyboard">
-            <!-- Teclas geradas dinamicamente no keyboard.js -->
+            <!-- Keys generated dynamically by keyboard.js -->
           </div>
         </div>
 
-        <!-- Coluna da Direita: Filtros + Resultados -->
+        <!-- Right Column: Filters + Results -->
         <div class="search-right-panel">
           <div class="search-filters-group" id="search-filters-container" style="margin-bottom: 20px;">
-            <!-- Filtros de busca injetados via JS -->
+            <!-- Search filters injected via JS -->
           </div>
-          <h3 class="search-results-title" id="results-title" style="margin-top: 10px;">Resultados da Busca</h3>
+          <h3 class="search-results-title" id="results-title" style="margin-top: 10px;">Search Results</h3>
           <div class="search-results" id="search-results-list">
-            <!-- Itens de resultado inseridos dinamicamente -->
-            <div class="search-no-results">Use o teclado para iniciar sua busca.</div>
+            <!-- Result items inserted dynamically -->
+            <div class="search-no-results">Use the keyboard to start searching.</div>
           </div>
         </div>
       </div>
     </div>
 
-  </div> <!-- Fim main-content -->
+  </div> <!-- end main-content -->
 
-  <!-- VISUALIZAÇÃO: REPRODUTOR DE VÍDEO (OVERLAY) -->
+  <!-- VIEW: VIDEO PLAYER (OVERLAY) -->
   <div id="view-player" class="player-overlay">
     <video id="kuraPlayer" width="1920" height="1080">
       <source id="playerSource" src="" type="video/mp4" />
     </video>
-    
-    <!-- Legendas SRT -->
+
+    <!-- SRT Subtitles -->
     <div id="subtitles" class="player-subtitles"></div>
 
-    <!-- Controles -->
+    <!-- Controls -->
     <div id="player-controls" class="player-controls">
-      <div class="player-title" id="player-media-title">Solo Leveling - Episódio 1</div>
+      <div class="player-title" id="player-media-title">Solo Leveling - Episode 1</div>
       <div class="player-timeline-bar">
         <div class="player-timeline-progress" id="player-progress"></div>
       </div>
@@ -233,7 +253,7 @@
         <span id="player-current-time">00:00</span>
         <span id="player-total-time">00:00</span>
       </div>
-      <div class="player-instructions">Pressione BACK para voltar ao catálogo</div>
+      <div class="player-instructions">Press BACK to return to the catalog</div>
     </div>
   </div>
 
