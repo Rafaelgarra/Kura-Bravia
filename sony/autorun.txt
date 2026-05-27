@@ -1,0 +1,3 @@
+{
+  "auid": "com.kura.braviaapp"
+}

@@ -1,0 +1,1111 @@
+/* ==========================================================================
+   KURA BRAVIA APP — STYLE SYSTEM (Bravia 2012 / Opera Presto Compliant)
+   - Fundo Super Escuro para Cinema
+   - Barra Lateral Dinâmica (Sidebar)
+   - Trilhos Verticais e Horizontais Otimizados
+   ========================================================================== */
+
+/* Reset Geral e Fundo */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #020408; /* Fundo extremamente escuro */
+  background-image: 
+    radial-gradient(circle at 0% 0%, rgba(138, 43, 226, 0.12), transparent 35%),
+    radial-gradient(circle at 100% 100%, rgba(0, 163, 255, 0.1), transparent 35%);
+  color: #EDEDED;
+  font-family: 'Inter', Arial, sans-serif;
+  overflow: hidden;
+  width: 1920px;
+  height: 1080px;
+}
+
+/* ==========================================================================
+   TELA DE CARREGAMENTO (SPLASH SCREEN)
+   ========================================================================== */
+.splash-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  background-color: #020408;
+  z-index: 9999;
+  display: block;
+}
+
+.splash-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 400px;
+  margin-top: -200px;
+  margin-left: -300px;
+  text-align: center;
+}
+
+.splash-logo {
+  height: 180px;
+  margin-bottom: 25px;
+}
+
+.splash-text {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 56px;
+  letter-spacing: 4px;
+  color: #EDEDED;
+  margin-bottom: 30px;
+}
+
+.splash-kanji {
+  color: #5FFBFF;
+  border-left: 2px solid #5FFBFF;
+  padding-left: 15px;
+  text-shadow: 0 0 10px #5FFBFF;
+}
+
+.splash-loading-bar {
+  width: 380px;
+  height: 6px;
+  background-color: #111827;
+  margin: 0 auto;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.splash-loading-progress {
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, #00A3FF, #8A2BE2);
+  border-radius: 3px;
+}
+
+/* ==========================================================================
+   BARRA LATERAL DE NAVEGAÇÃO (SIDEBAR)
+   ========================================================================== */
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 1080px;
+  background-color: #05080F;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 100;
+  overflow: hidden;
+  transition: width 0.22s ease-out; /* Animação suave para expandir */
+}
+
+.sidebar.expanded {
+  width: 260px;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.sidebar-logo {
+  height: 120px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.sidebar-logo-img {
+  height: 50px;
+  min-width: 50px;
+}
+
+.sidebar-items {
+  margin-top: 150px;
+  width: 100%;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  height: 76px;
+  padding-left: 32px;
+  color: #96A3B8;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  width: 260px; /* Largura total interna para caber os textos */
+}
+
+.sb-icon {
+  font-size: 32px;
+  min-width: 40px;
+  margin-right: 25px;
+  text-align: center;
+}
+
+.sb-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.15s ease;
+}
+
+/* Exibe os textos quando expandido */
+.sidebar.expanded .sb-label {
+  opacity: 1;
+}
+
+/* Foco e Ativo na Sidebar */
+.sidebar-item.focused {
+  color: #5FFBFF;
+  background-color: rgba(95, 251, 255, 0.08);
+  border-left: 4px solid #5FFBFF;
+}
+
+.sidebar-item.active {
+  color: #00A3FF;
+}
+
+.sidebar-item.active.focused {
+  color: #5FFBFF;
+}
+
+.sidebar-footer {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.logo-kanji {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 36px;
+  color: #5FFBFF;
+  text-shadow: 0 0 10px #5FFBFF;
+}
+
+/* ==========================================================================
+   CONTEÚDO PRINCIPAL (ÁREA DE VISUALIZAÇÕES)
+   ========================================================================== */
+#main-content {
+  position: absolute;
+  top: 0;
+  left: 100px; /* Sidebar fixa em 100px */
+  width: 1820px;
+  height: 1080px;
+  z-index: 5;
+}
+
+.view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1820px;
+  height: 1080px;
+  padding: 40px 60px 40px 60px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+}
+
+.view.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.fade-in-el {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* ==========================================================================
+   SEÇÃO HERO (DESTAQUE)
+   ========================================================================== */
+.hero {
+  position: relative;
+  width: 1700px;
+  height: 380px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(16, 24, 40, 0.6), rgba(3, 7, 14, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 25px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.hero-glow-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0, 163, 255, 0.1), transparent);
+  pointer-events: none;
+}
+
+.hero-content {
+  float: left;
+  width: 1050px;
+  height: 100%;
+  padding: 45px 60px;
+}
+
+.eyebrow {
+  color: #5FFBFF;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 52px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+  color: #EDEDED;
+}
+
+.hero p {
+  color: #c8d3e2;
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 25px;
+  height: 80px;
+  overflow: hidden;
+}
+
+.buttons {
+  display: flex;
+}
+
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: #EDEDED;
+  background: linear-gradient(135deg, #00A3FF, #8A2BE2);
+  padding: 14px 28px;
+  border-radius: 10px;
+  margin-right: 15px;
+  box-shadow: 0 4px 15px rgba(0, 163, 255, 0.2);
+  border: 2px solid transparent;
+}
+
+.btn.alt {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+.btn.focused {
+  border: 2px solid #5FFBFF;
+  box-shadow: 0 0 18px rgba(95, 251, 255, 0.7);
+  transform: scale(1.02);
+}
+
+.hero-feature {
+  float: right;
+  width: 590px;
+  height: 100%;
+  position: relative;
+}
+
+#hero-details-wrapper, .poster-card {
+  transition: opacity 0.15s ease-out;
+  opacity: 1;
+}
+
+.poster-card {
+  width: 500px;
+  height: 290px;
+  position: absolute;
+  top: 45px;
+  right: 50px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop');
+}
+
+/* ==========================================================================
+   VIEWPORT E ROLAGEM VERTICAL DE TRILHOS (RAILS)
+   ========================================================================== */
+.rails-viewport {
+  position: relative;
+  width: 1700px;
+  height: 580px; /* Área visível para os trilhos */
+  overflow: hidden;
+}
+
+.rails-y-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: transform 0.3s ease-out; /* Deslocamento suave vertical */
+}
+
+.section {
+  width: 100%;
+  height: 270px; /* Altura de cada trilho individual */
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #EDEDED;
+  padding-left: 5px;
+}
+
+.rail-container {
+  width: 100%;
+  height: 210px;
+  overflow: hidden;
+  position: relative;
+}
+
+.rail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 210px;
+  white-space: nowrap;
+  transition: transform 0.3s ease-out; /* Deslocamento suave horizontal */
+}
+
+/* Card de Mídia */
+.card {
+  display: inline-block;
+  width: 290px;
+  height: 163px;
+  border-radius: 12px;
+  margin-right: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  background-color: #0A0E17;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to top, rgba(2, 4, 8, 0.95), transparent);
+  padding: 12px 15px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #EDEDED;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.card.focused {
+  border: 2px solid #5FFBFF;
+  box-shadow: 0 0 16px rgba(95, 251, 255, 0.75);
+}
+
+/* ==========================================================================
+   TELA DE BUSCA (Ajustada para o novo container)
+   ========================================================================== */
+.search-layout {
+  width: 1700px;
+  height: 900px;
+  margin-top: 40px;
+}
+
+.search-left-panel {
+  float: left;
+  width: 760px;
+  height: 100%;
+}
+
+.search-input-box {
+  width: 700px;
+  height: 70px;
+  background-color: #0A0E17;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin-bottom: 30px;
+  padding: 0 25px;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-box.focused {
+  border: 2px solid #5FFBFF;
+  box-shadow: 0 0 15px rgba(95, 251, 255, 0.35);
+}
+
+.search-icon {
+  font-size: 28px;
+  color: #96A3B8;
+  margin-right: 15px;
+}
+
+.search-placeholder {
+  font-size: 22px;
+  color: #96A3B8;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Teclado */
+.keyboard {
+  width: 700px;
+  height: 480px;
+}
+
+.keyboard-row {
+  margin-bottom: 12px;
+  clear: both;
+}
+
+.key {
+  float: left;
+  width: 56px;
+  height: 56px;
+  background-color: #0A0E17;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #EDEDED;
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 56px;
+  margin-right: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.key.space {
+  width: 260px;
+}
+
+.key.backspace, .key.clear {
+  width: 124px;
+  font-size: 16px;
+}
+
+.key.focused {
+  background: linear-gradient(135deg, #00A3FF, #8A2BE2);
+  border: 1px solid #5FFBFF;
+  color: #FFFFFF;
+  box-shadow: 0 0 15px rgba(95, 251, 255, 0.6);
+}
+
+/* Resultados Busca */
+.search-right-panel {
+  float: right;
+  width: 900px;
+  height: 100%;
+  padding-left: 40px;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-results-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  color: #EDEDED;
+  margin-bottom: 25px;
+}
+
+.search-results {
+  width: 100%;
+  height: 700px;
+  overflow-y: hidden;
+}
+
+.search-no-results {
+  font-size: 20px;
+  color: #96A3B8;
+  text-align: center;
+  margin-top: 200px;
+}
+
+.result-item {
+  width: 820px;
+  height: 110px;
+  background-color: #0A0E17;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin-bottom: 15px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.result-item.focused {
+  border: 2px solid #5FFBFF;
+  box-shadow: 0 0 15px rgba(95, 251, 255, 0.55);
+}
+
+.result-thumb {
+  width: 140px;
+  height: 80px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  margin-right: 20px;
+}
+
+.result-info {
+  flex: 1;
+}
+
+.result-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #EDEDED;
+  margin-bottom: 6px;
+}
+
+.result-meta {
+  font-size: 14px;
+  color: #96A3B8;
+}
+
+/* ==========================================================================
+   REPRODUTOR DE VÍDEO (OVERLAY)
+   ========================================================================== */
+.player-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  background-color: #000000;
+  z-index: 999;
+}
+
+.player-overlay.active {
+  display: block;
+}
+
+#kuraPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  z-index: 1000;
+  background-color: #000000;
+}
+
+.player-subtitles {
+  position: absolute;
+  bottom: 120px;
+  left: 0;
+  width: 1920px;
+  text-align: center;
+  z-index: 1002;
+  font-size: 42px;
+  font-weight: 800;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  text-shadow: 
+    3px 3px 0px #000, 
+    -3px -3px 0px #000, 
+    3px -3px 0px #000, 
+    -3px 3px 0px #000, 
+    0px 3px 0px #000, 
+    0px -3px 0px #000, 
+    3px 0px 0px #000, 
+    -3px 0px 0px #000;
+  padding: 0 100px;
+  pointer-events: none;
+}
+
+.player-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1920px;
+  height: 220px;
+  background: linear-gradient(to top, rgba(2, 4, 8, 0.98) 60%, transparent);
+  padding: 40px 100px;
+  z-index: 1001;
+  display: block;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.player-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.player-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #EDEDED;
+  margin-bottom: 15px;
+}
+
+.player-timeline-bar {
+  width: 1720px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.player-timeline-progress {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #00A3FF, #8A2BE2);
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.player-time-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #96A3B8;
+  margin-bottom: 10px;
+}
+
+.player-instructions {
+  font-size: 14px;
+  color: #5FFBFF;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   TELA DE CATEGORIAS / FILTRAGEM DE GÊNEROS
+   ========================================================================== */
+.categories-header {
+  margin-bottom: 25px;
+}
+
+.categories-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 1650px;
+}
+
+.catalog-filter-btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #EDEDED;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: all 0.15s ease-out;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.catalog-filter-btn.focused {
+  background: linear-gradient(135deg, #00A3FF, #8A2BE2);
+  border-color: #5FFBFF;
+  box-shadow: 0 0 15px rgba(95, 251, 255, 0.55);
+  transform: scale(1.05);
+}
+
+.catalog-filter-btn .btn-icon {
+  margin-right: 8px;
+}
+
+#categories-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #EDEDED;
+  margin-bottom: 0px;
+}
+
+.filters-group {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.filter-row-container {
+  display: block;
+  margin-bottom: 12px;
+  height: 38px;
+  line-height: 38px;
+}
+
+.filter-row-label {
+  display: inline-block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  color: #96A3B8;
+  width: 140px;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.filter-row-items {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.filter-tab {
+  display: inline-block;
+  padding: 0 20px;
+  height: 32px;
+  line-height: 30px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #96A3B8;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-right: 12px;
+  cursor: pointer;
+  vertical-align: middle;
+  box-sizing: border-box;
+  transition: all 0.15s ease-out;
+}
+
+.filter-tab.active {
+  color: #5FFBFF;
+  background-color: rgba(0, 163, 255, 0.15);
+  border-color: #00A3FF;
+  font-weight: 800;
+}
+
+.filter-tab.focused {
+  border-color: #5FFBFF;
+  box-shadow: 0 0 12px rgba(95, 251, 255, 0.5);
+  color: #5FFBFF;
+  background-color: rgba(95, 251, 255, 0.08);
+}
+
+.categories-grid-viewport {
+  width: 1700px;
+  height: 720px;
+  overflow: hidden;
+  position: relative;
+}
+
+.categories-grid {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease-out;
+}
+
+/* Grid Cards (Exibidos em 4 Colunas) */
+.grid-card {
+  display: inline-block;
+  width: 390px;
+  height: 220px;
+  border-radius: 12px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  background-color: #0A0E17;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(to top, rgba(2, 4, 8, 0.95), transparent);
+  padding: 12px 18px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.grid-card-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #EDEDED;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.grid-card.focused {
+  border: 2px solid #5FFBFF;
+  box-shadow: 0 0 16px rgba(95, 251, 255, 0.75);
+}
+
+.categories-no-results {
+  font-size: 20px;
+  color: #96A3B8;
+  text-align: center;
+  margin-top: 150px;
+}
+
+/* ==========================================================================
+   TELA DE DETALHES COM PLAYER PIP
+   ========================================================================== */
+.details-backdrop-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1820px;
+  height: 1080px;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  background-repeat: no-repeat;
+}
+
+.details-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1820px;
+  height: 1080px;
+  /* Camada preta translúcida uniforme + gradiente para garantir contraste legível da sinopse e textos */
+  background: rgba(2, 4, 8, 0.8) linear-gradient(to right, #020408 50%, rgba(2, 4, 8, 0.4) 100%);
+  z-index: 2;
+}
+
+/* Modal Suspenso para Escolha de Áudio / Legenda (Design Premium) */
+.options-modal {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 540px;
+  margin-top: -240px;
+  margin-left: -270px;
+  background-color: #0A0E17;
+  background-image: linear-gradient(135deg, rgba(10, 14, 23, 0.98), rgba(3, 7, 14, 0.99));
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 35px;
+  z-index: 500;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
+}
+
+.modal-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #5FFBFF;
+  margin-bottom: 25px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.modal-list {
+  display: block;
+}
+
+.modal-item {
+  padding: 16px 24px;
+  font-size: 18px;
+  color: #96A3B8;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid transparent;
+  transition: all 0.15s ease-out;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.modal-item.selected {
+  color: #00A3FF;
+  font-weight: 800;
+}
+
+.modal-item.focused {
+  background-color: rgba(95, 251, 255, 0.08);
+  border-color: #5FFBFF;
+  color: #5FFBFF;
+  box-shadow: 0 0 15px rgba(95, 251, 255, 0.35);
+}
+
+.modal-item-check {
+  font-size: 20px;
+  color: #5FFBFF;
+  font-weight: 800;
+}
+
+.details-layout {
+  position: relative;
+  z-index: 3;
+  width: 1700px;
+  height: 800px;
+  margin-top: 80px;
+  padding-left: 20px;
+}
+
+.details-left {
+  float: left;
+  width: 980px;
+  padding-right: 40px;
+}
+
+.details-right {
+  float: right;
+  width: 680px;
+  padding-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.details-meta-row {
+  font-size: 20px;
+  color: #c8d3e2;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.meta-rating {
+  color: #FFC700;
+  font-weight: 800;
+}
+
+.meta-separator {
+  margin: 0 10px;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+#details-title {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 56px;
+  margin-bottom: 18px;
+  line-height: 1.1;
+  color: #EDEDED;
+}
+
+#details-description {
+  color: #c8d3e2;
+  font-size: 19px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  height: 160px;
+  overflow: hidden;
+}
+
+.details-combos {
+  display: block;
+}
+
+.combo-box {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 28px;
+  border-radius: 12px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.combo-box.focused {
+  border: 2px solid #5FFBFF;
+  box-shadow: 0 0 15px rgba(95, 251, 255, 0.55);
+  background-color: rgba(95, 251, 255, 0.08);
+}
+
+.combo-label {
+  color: #96A3B8;
+  margin-right: 12px;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.combo-value {
+  color: #EDEDED;
+  font-weight: 800;
+  font-size: 17px;
+}
+
+/* Picture-in-Picture Mini Player */
+.pip-container {
+  width: 560px;
+  height: 315px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  background-color: #000000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.pip-container.focused {
+  border: 2px solid #5FFBFF;
+  box-shadow: 0 0 25px rgba(95, 251, 255, 0.8);
+}
+
+#kuraPipPlayer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #000000;
+}
+
+.pip-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #EDEDED;
+  font-size: 15px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.pip-icon {
+  font-size: 20px;
+  margin-right: 8px;
+  color: #5FFBFF;
+}

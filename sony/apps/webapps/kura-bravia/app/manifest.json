@@ -1,0 +1,25 @@
+{
+  "name": {
+    "default": "pt_BR",
+    "pt_BR": "Kura TV"
+  },
+  "auid": "com.kura.braviaapp",
+  "version": "1.0",
+  "manifest_version": "1.0",
+  "app": {
+    "launch": {
+      "web_url": "http://192.168.15.60:9000/bravia/index.html",
+      "cold_boot_delay": 5000
+    },
+    "attachkeys": ["VK_HOME", "VK_RED", "VK_GREEN", "VK_YELLOW", "VK_BLUE"],
+    "onsleep": "stop",
+    "window_close": 0,
+    "alert_dialog": "ignore",
+    "cache_files_and_images": true,
+    "initial_input": "video",
+    "fixed_input": true,
+    "reboot": true
+  },
+  "splash": "assets/splash.jpg",
+  "minimum_web_platform_version": "1.0"
+}

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Kura Streaming</title>
+  <!-- Importando fontes com suporte a navegadores legados (Google Fonts) -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,800|Orbitron:700,900|Noto+Sans+JP:700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Tela de Carregamento (Splash Screen) -->
+  <div id="splash-screen" class="splash-screen">
+    <div class="splash-content">
+      <img src="icons/kura-icon.svg" class="splash-logo" alt="Kura Logo" />
+      <div class="splash-text">KURA <span class="splash-kanji">蔵</span></div>
+      <div class="splash-loading-bar"><div class="splash-loading-progress"></div></div>
+    </div>
+  </div>
+
+  <!-- Barra Lateral de Navegação (Menu de Streaming) -->
+  <div class="sidebar" id="sidebar-menu">
+    <div class="sidebar-logo">
+      <img src="icons/kura-icon.svg" class="sidebar-logo-img" alt="Kura Icon" />
+    </div>
+    <div class="sidebar-items">
+      <div class="sidebar-item active" id="sb-home" data-target="home">
+        <span class="sb-icon">⌂</span>
+        <span class="sb-label">Início</span>
+      </div>
+      <div class="sidebar-item" id="sb-animes" data-target="animes">
+        <span class="sb-icon">📺</span>
+        <span class="sb-label">Animes</span>
+      </div>
+      <div class="sidebar-item" id="sb-series" data-target="series">
+        <span class="sb-icon">🎬</span>
+        <span class="sb-label">Séries</span>
+      </div>
+      <div class="sidebar-item" id="sb-filmes" data-target="filmes">
+        <span class="sb-icon">🎥</span>
+        <span class="sb-label">Filmes</span>
+      </div>
+      <div class="sidebar-item" id="sb-search" data-target="search">
+        <span class="sb-icon">⌕</span>
+        <span class="sb-label">Busca</span>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <span class="logo-kanji">蔵</span>
+    </div>
+  </div>
+
+  <!-- Container Principal das Visualizações (Deslocado para a direita da sidebar) -->
+  <div id="main-content">
+
+    <!-- VISUALIZAÇÃO: DETALHES DO TÍTULO (DETALHES + PIP) -->
+    <div id="view-details" class="view">
+      <div id="details-backdrop" class="details-backdrop-bg"></div>
+      <div class="details-overlay"></div>
+      <div class="details-layout">
+        <!-- Coluna da Esquerda: Info, Sinopse e Combos -->
+        <div class="details-left">
+          <div class="eyebrow" id="details-eyebrow">ANIME</div>
+          <h1 id="details-title">Solo Leveling</h1>
+          <div class="details-meta-row">
+            <span class="meta-rating" id="details-rating">★ 9.4</span>
+            <span class="meta-separator">·</span>
+            <span id="details-year">2024</span>
+            <span class="meta-separator">·</span>
+            <span id="details-genres">Ação, Aventura</span>
+          </div>
+          <p id="details-description">O caçador mais fraco da humanidade, Sung Jin-woo, ganha a chance de subir de nível de forma secreta e ilimitada em um mundo perigoso cheio de dungeons.</p>
+          
+          <div class="details-combos">
+            <div class="combo-box" id="combo-audio">
+              <span class="combo-label">Áudio:</span>
+              <span class="combo-value" id="val-audio">Japonês (Original)</span>
+            </div>
+            <div class="combo-box" id="combo-subtitle">
+              <span class="combo-label">Legenda:</span>
+              <span class="combo-value" id="val-subtitle">Português (SRT)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna da Direita: Mini Player (PiP) -->
+        <div class="details-right">
+          <div class="pip-container" id="details-pip-player">
+            <video id="kuraPipPlayer" width="560" height="315" muted loop>
+              <source id="pipSource" src="" type="video/mp4" />
+            </video>
+            <div class="pip-overlay">
+              <span class="pip-icon">⛶</span>
+              <span class="pip-text">Pressione ENTER para Tela Cheia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE SELEÇÃO SUSPENSO (ÁUDIO OU LEGENDA) -->
+    <div id="selection-modal" class="options-modal">
+      <div class="modal-title" id="modal-title-text">Selecionar Opção</div>
+      <div class="modal-list" id="modal-options-list">
+        <!-- Opções injetadas via JS -->
+      </div>
+    </div>
+
+    <!-- VISUALIZAÇÃO: CATEGORIAS / FILTROS -->
+    <div id="view-categories" class="view">
+      <div class="categories-header">
+        <div class="categories-title-container">
+          <h2 id="categories-title">Catálogo: Animes</h2>
+          <div id="catalog-filter-btn" class="catalog-filter-btn">
+            <span class="btn-icon">🔍</span> Filtrar no Buscar
+          </div>
+        </div>
+      </div>
+      <div class="categories-grid-viewport">
+        <div class="categories-grid" id="categories-items-grid">
+          <!-- Grade de Cards via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- VISUALIZAÇÃO: HOME -->
+    <div id="view-home" class="view active">
+      <!-- Seção Hero: Destaque Principal -->
+      <div class="hero" id="hero-banner">
+        <div class="hero-glow-left"></div>
+        <div class="hero-content">
+          <div id="hero-details-wrapper">
+            <div class="eyebrow" id="hero-eyebrow">Destaque em Alta</div>
+            <h1 id="hero-title">Solo Leveling</h1>
+            <p id="hero-description">O caçador mais fraco da humanidade, Sung Jin-woo, ganha a chance de subir de nível de forma secreta e ilimitada em um mundo perigoso cheio de dungeons.</p>
+          </div>
+          <div class="buttons">
+            <div class="btn" id="hero-btn-play">▶ Assistir agora</div>
+            <div class="btn alt" id="hero-btn-list">＋ Minha lista</div>
+          </div>
+        </div>
+        <div class="hero-feature">
+          <div class="poster-card" id="hero-poster"></div>
+        </div>
+      </div>
+
+      <!-- Container de Trilhos com Rolagem Vertical -->
+      <div class="rails-viewport" id="rails-viewport">
+        <div class="rails-y-container" id="rails-y-container">
+          
+          <!-- Trilho 1: Animes -->
+          <div class="section" id="section-0">
+            <h3 class="section-title">Animes em Alta</h3>
+            <div class="rail-container">
+              <div class="rail" id="rail-0">
+                <!-- Preenchido via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Trilho 2: Séries -->
+          <div class="section" id="section-1">
+            <h3 class="section-title">Séries Recomendas</h3>
+            <div class="rail-container">
+              <div class="rail" id="rail-1">
+                <!-- Preenchido via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Trilho 3: Filmes -->
+          <div class="section" id="section-2">
+            <h3 class="section-title">Filmes Populares</h3>
+            <div class="rail-container">
+              <div class="rail" id="rail-2">
+                <!-- Preenchido via JS -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- VISUALIZAÇÃO: BUSCA -->
+    <div id="view-search" class="view">
+      <div class="search-layout">
+        <!-- Coluna da Esquerda: Campo de Busca e Teclado -->
+        <div class="search-left-panel">
+          <div class="search-input-box" id="search-box">
+            <span class="search-icon">⌕</span>
+            <div class="search-placeholder" id="search-input-text">Digite para buscar...</div>
+          </div>
+          
+          <!-- Teclado Virtual para Controle Remoto -->
+          <div class="keyboard" id="virtual-keyboard">
+            <!-- Teclas geradas dinamicamente no keyboard.js -->
+          </div>
+        </div>
+
+        <!-- Coluna da Direita: Filtros + Resultados -->
+        <div class="search-right-panel">
+          <div class="search-filters-group" id="search-filters-container" style="margin-bottom: 20px;">
+            <!-- Filtros de busca injetados via JS -->
+          </div>
+          <h3 class="search-results-title" id="results-title" style="margin-top: 10px;">Resultados da Busca</h3>
+          <div class="search-results" id="search-results-list">
+            <!-- Itens de resultado inseridos dinamicamente -->
+            <div class="search-no-results">Use o teclado para iniciar sua busca.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- Fim main-content -->
+
+  <!-- VISUALIZAÇÃO: REPRODUTOR DE VÍDEO (OVERLAY) -->
+  <div id="view-player" class="player-overlay">
+    <video id="kuraPlayer" width="1920" height="1080">
+      <source id="playerSource" src="" type="video/mp4" />
+    </video>
+    
+    <!-- Legendas SRT -->
+    <div id="subtitles" class="player-subtitles"></div>
+
+    <!-- Controles -->
+    <div id="player-controls" class="player-controls">
+      <div class="player-title" id="player-media-title">Solo Leveling - Episódio 1</div>
+      <div class="player-timeline-bar">
+        <div class="player-timeline-progress" id="player-progress"></div>
+      </div>
+      <div class="player-time-row">
+        <span id="player-current-time">00:00</span>
+        <span id="player-total-time">00:00</span>
+      </div>
+      <div class="player-instructions">Pressione BACK para voltar ao catálogo</div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/keyboard.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

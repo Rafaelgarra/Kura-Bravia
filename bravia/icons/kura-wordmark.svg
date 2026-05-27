@@ -1,0 +1,21 @@
+<svg width="920" height="220" viewBox="0 0 920 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="text" x1="0" y1="0" x2="920" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EDEDED"/><stop offset=".55" stop-color="#DFF9FF"/><stop offset="1" stop-color="#8A2BE2"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="220" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5FFBFF"/><stop offset=".5" stop-color="#00A3FF"/><stop offset="1" stop-color="#8A2BE2"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <g transform="translate(10 10) scale(.39)">
+    <rect x="32" y="32" width="448" height="448" rx="108" fill="#060B16" stroke="url(#accent)" stroke-width="8"/>
+    <circle cx="256" cy="256" r="160" stroke="url(#accent)" stroke-width="22" stroke-linecap="round" stroke-dasharray="780 160" filter="url(#glow)"/>
+    <path d="M337 112C298 137 279 170 280 211C252 174 208 166 164 189C216 199 233 226 209 272C189 309 191 354 225 388C218 344 242 316 290 303C343 288 366 250 350 205C340 177 336 149 337 112Z" fill="url(#accent)" filter="url(#glow)"/>
+    <path d="M182 380C189 344 215 320 260 308C223 303 193 286 172 257C144 304 147 348 182 380Z" fill="#8A2BE2" opacity=".88"/>
+  </g>
+  <text x="230" y="142" font-family="Orbitron, Arial Black, sans-serif" font-size="92" font-weight="800" letter-spacing="3" fill="url(#text)">KURA</text>
+  <line x1="548" y1="43" x2="548" y2="174" stroke="#5FFBFF" stroke-width="2" opacity=".9"/>
+  <text x="590" y="121" font-family="Noto Sans JP, sans-serif" font-size="90" font-weight="800" fill="#5FFBFF">蔵</text>
+  <text x="603" y="158" font-family="Orbitron, sans-serif" font-size="22" letter-spacing="11" fill="#8A2BE2">KURA</text>
+</svg>

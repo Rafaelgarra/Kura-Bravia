@@ -1,0 +1,15 @@
+# Documentation (internal only)
+docs/
+
+# Reference UI mockups
+reference UI/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.swp
+*.swo
