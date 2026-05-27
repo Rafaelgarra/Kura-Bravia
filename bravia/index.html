@@ -13,7 +13,12 @@
   <div id="splash-screen" class="splash-screen">
     <div class="splash-content">
       <img src="icons/kura-icon.svg" class="splash-logo" alt="Kura Logo" />
-      <div class="splash-text">KURA <span class="splash-kanji">蔵</span></div>
+      <div class="splash-text">KURA <span class="splash-kanji" style="border:none;text-shadow:none;display:inline-block;vertical-align:middle;margin-left:10px;">
+        <svg viewBox="0 0 512 512" width="56" height="56" fill="none" style="display:inline-block;vertical-align:middle;filter:drop-shadow(0 0 6px #5FFBFF);">
+          <circle cx="256" cy="256" r="160" stroke="#5FFBFF" stroke-width="24"/>
+          <path d="M337 112C298 137 279 170 280 211C252 174 208 166 164 189C216 199 233 226 209 272C189 309 191 354 225 388C218 344 242 316 290 303C343 288 366 250 350 205C340 177 336 149 337 112Z" fill="#00A3FF"/>
+        </svg>
+      </span></div>
       <div class="splash-loading-bar"><div class="splash-loading-progress"></div></div>
     </div>
   </div>
@@ -65,8 +70,11 @@
         <span class="sb-label">Search</span>
       </div>
     </div>
-    <div class="sidebar-footer">
-      <span class="logo-kanji">蔵</span>
+    <div class="sidebar-footer" style="padding: 10px 0;">
+      <svg viewBox="0 0 512 512" width="48" height="48" fill="none" style="display:block;margin:0 auto;filter:drop-shadow(0 0 6px #5FFBFF);">
+        <circle cx="256" cy="256" r="160" stroke="#5FFBFF" stroke-width="24"/>
+        <path d="M337 112C298 137 279 170 280 211C252 174 208 166 164 189C216 199 233 226 209 272C189 309 191 354 225 388C218 344 242 316 290 303C343 288 366 250 350 205C340 177 336 149 337 112Z" fill="#00A3FF"/>
+      </svg>
     </div>
   </div>
 
@@ -75,7 +83,7 @@
 
     <!-- VIEW: TITLE DETAILS (INFO + PIP) -->
     <div id="view-details" class="view">
-      <div id="details-backdrop" class="details-backdrop-bg"></div>
+      <div id="details-backdrop" class="details-backdrop-bg"><img id="details-backdrop-img" style="width:100%;height:100%;object-fit:cover;" src="" onerror="this.style.display='none';" /></div>
       <div class="details-overlay"></div>
       <div class="details-layout">
         <!-- Left Column: Info, Synopsis and Combos -->
@@ -160,7 +168,7 @@
           </div>
         </div>
         <div class="hero-feature">
-          <div class="poster-card" id="hero-poster"></div>
+          <div class="poster-card" id="hero-poster"><img id="hero-poster-img" style="width:100%;height:100%;object-fit:cover;" src="" onerror="this.style.display='none';" /></div>
         </div>
       </div>
 

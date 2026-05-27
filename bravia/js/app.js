@@ -153,7 +153,8 @@ function renderAllGrids() {
     var items = gridRows[r];
     for (var c = 0; c < items.length; c++) {
       var item = items[c];
-      html += '<div class="card" id="card-r' + r + '-c' + c + '" style="background-image: url(' + item.backdrop + ')" data-row="' + r + '" data-col="' + c + '">';
+      html += '<div class="card" id="card-r' + r + '-c' + c + '" data-row="' + r + '" data-col="' + c + '">';
+      html += '  <img class="card-img" src="' + item.backdrop + '" onerror="this.style.display=\'none\';" />';
       html += '  <div class="card-overlay"><div class="card-title">' + item.title + '</div></div>';
       html += '</div>';
     }
@@ -191,7 +192,8 @@ function renderCategoryGrid() {
     var item = items[i];
     var r = Math.floor(i / 4);
     var c = i % 4;
-    html += '<div class="grid-card" id="grid-card-r' + r + '-c' + c + '" style="background-image: url(' + item.backdrop + ')" data-row="' + r + '" data-col="' + c + '">';
+    html += '<div class="grid-card" id="grid-card-r' + r + '-c' + c + '" data-row="' + r + '" data-col="' + c + '">';
+    html += '  <img class="grid-card-img" src="' + item.backdrop + '" onerror="this.style.display=\'none\';" />';
     html += '  <div class="grid-card-overlay"><div class="grid-card-title">' + item.title + '</div></div>';
     html += '</div>';
   }
@@ -367,7 +369,13 @@ function updateHeroWithMedia(media) {
 
     if (heroTitle) heroTitle.innerHTML = media.title;
     if (heroDesc) heroDesc.innerHTML = 'Year: ' + media.year + ' · Rating: ★ ' + (media.rating || '9.0') + ' · Kura Local Media.';
-    if (heroPoster) heroPoster.style.backgroundImage = 'url(' + media.backdrop + ')';
+    if (heroPoster) {
+      var img = document.getElementById('hero-poster-img');
+      if (img) {
+        img.style.display = 'block';
+        img.src = media.backdrop;
+      }
+    }
     if (heroEyebrow) heroEyebrow.innerHTML = 'Catalog ' + (AppState.gridRowIndex === 0 ? 'Anime' : (AppState.gridRowIndex === 1 ? 'Series' : 'Movies'));
     
     if (wrapper) wrapper.style.opacity = '1';
@@ -396,7 +404,11 @@ function openDetailsPage(media) {
   // Backdrop background (frame from selected title)
   var backdropEl = document.getElementById('details-backdrop');
   if (backdropEl) {
-    backdropEl.style.backgroundImage = 'url(' + media.backdrop + ')';
+    var img = document.getElementById('details-backdrop-img');
+    if (img) {
+      img.style.display = 'block';
+      img.src = media.backdrop;
+    }
   }
 
   // Reset combos to defaults
