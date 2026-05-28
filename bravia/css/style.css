@@ -502,13 +502,14 @@ body {
 }
 
 .search-placeholder {
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
   font-size: 22px;
   color: #96A3B8;
-  max-width: 580px;
+  width: 100%;
+  line-height: 66px;
   overflow: hidden;
   white-space: nowrap;
+  padding-left: 8px;
 }
 
 /* Teclado */
@@ -542,12 +543,17 @@ body {
 }
 
 .key.space {
-  width: 270px;
+  width: 109px;
 }
 
-.key.backspace, .key.clear {
-  width: 140px;
-  font-size: 15px;
+.key.backspace {
+  width: 130px;
+  font-size: 14px;
+}
+
+.key.clear {
+  width: 130px;
+  font-size: 14px;
 }
 
 .key.focused {

@@ -11,7 +11,7 @@ var VirtualKeyboard = {
     ['S', 'T', 'U', 'V', 'W', 'X'],
     ['Y', 'Z', '1', '2', '3', '4'],
     ['5', '6', '7', '8', '9', '0'],
-    ['SPACE', 'DELETE', 'CLEAR']
+    ['BACKSPACE', 'SPACE', 'DELETE']
   ],
   
   currentRow: 0,
@@ -40,9 +40,9 @@ var VirtualKeyboard = {
         // Special styling for control keys
         if (keyVal === 'SPACE') {
           keyClass += ' space';
-        } else if (keyVal === 'DELETE') {
+        } else if (keyVal === 'BACKSPACE') {
           keyClass += ' backspace';
-        } else if (keyVal === 'CLEAR') {
+        } else if (keyVal === 'DELETE') {
           keyClass += ' clear';
         }
         
@@ -122,9 +122,9 @@ var VirtualKeyboard = {
     
     if (keyVal === 'SPACE') {
       action = ' ';
-    } else if (keyVal === 'DELETE') {
+    } else if (keyVal === 'BACKSPACE') {
       action = 'BACKSPACE';
-    } else if (keyVal === 'CLEAR') {
+    } else if (keyVal === 'DELETE') {
       action = 'CLEAR';
     } else {
       action = keyVal; // Single character

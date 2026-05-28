@@ -815,7 +815,7 @@ function handleCategoriesBtnNavigation(key) {
 
     var textEl = getEl('search-input-text');
     if (textEl) {
-      textEl.innerHTML = "Type to search...";
+    textEl.innerHTML = "Digite para buscar...";
       textEl.style.color = '#96A3B8';
     }
 
@@ -1184,7 +1184,7 @@ function handleKeyboardPress(action) {
   }
 
   if (searchQuery.length === 0) {
-    textEl.innerHTML = "Type to search...";
+    textEl.innerHTML = "Digite para buscar...";
     textEl.style.color = '#96A3B8';
   } else {
     textEl.innerHTML = searchQuery;
