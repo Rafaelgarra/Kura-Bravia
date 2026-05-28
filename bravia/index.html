@@ -5,7 +5,7 @@
   <title>Kura Streaming</title>
   <!-- Font imports with legacy browser support (Google Fonts) -->
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600,800|Orbitron:700,900|Noto+Sans+JP:700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=6" />
+  <link rel="stylesheet" href="css/style.css?v=7" />
 </head>
 <body>
 
@@ -118,7 +118,11 @@
               <source id="pipSource" src="" type="video/mp4" />
             </video>
             <div class="pip-overlay">
-              <span class="pip-icon">⛶</span>
+              <div class="pip-play-btn">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
               <span class="pip-text">Press ENTER for Full Screen</span>
             </div>
           </div>
@@ -312,7 +316,7 @@
       return false;
     };
   </script>
-  <script src="js/keyboard.js?v=5"></script>
-  <script src="js/app.js?v=5"></script>
+  <script src="js/keyboard.js?v=6"></script>
+  <script src="js/app.js?v=6"></script>
 </body>
 </html>
