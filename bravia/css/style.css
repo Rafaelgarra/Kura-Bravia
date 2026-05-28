@@ -1114,12 +1114,16 @@ body {
 .pip-container {
   width: 560px;
   height: 315px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
   border-radius: 16px;
   overflow: hidden;
   position: relative;
   border: 2px solid rgba(255, 255, 255, 0.08);
   background-color: #000000;
   box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  /* Hack to force WebKit/Opera to clip accelerated video borders */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 .pip-container.focused {
@@ -1132,6 +1136,8 @@ body {
   height: 100%;
   object-fit: cover;
   background-color: #000000;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
   border-radius: 16px;
 }
 

@@ -1298,7 +1298,11 @@ function playVideo(videoUrl, title, startTime) {
   video.load();
   
   if (startTime) {
-    video.currentTime = startTime;
+    try {
+      video.currentTime = startTime;
+    } catch(e) {
+      console.log("Could not set main video currentTime: " + e.message);
+    }
   }
   
   playerView.className += ' active';
@@ -1333,10 +1337,18 @@ function handlePlayerControl(key) {
     else video.pause();
   } 
   else if (key === 39) {
-    video.currentTime = Math.min(video.duration, video.currentTime + 10);
+    try {
+      video.currentTime = Math.min(video.duration, video.currentTime + 10);
+    } catch(e) {
+      console.log("Could not seek forward: " + e.message);
+    }
   } 
   else if (key === 37) {
-    video.currentTime = Math.max(0, video.currentTime - 10);
+    try {
+      video.currentTime = Math.max(0, video.currentTime - 10);
+    } catch(e) {
+      console.log("Could not seek backward: " + e.message);
+    }
   }
 }
 
@@ -1402,8 +1414,16 @@ function closePlayer() {
   
   var pipVideo = document.getElementById('kuraPipPlayer');
   if (pipVideo) {
-    pipVideo.currentTime = playbackTime;
-    pipVideo.play();
+    try {
+      pipVideo.currentTime = playbackTime;
+    } catch(e) {
+      console.log("Could not set pip currentTime: " + e.message);
+    }
+    try {
+      pipVideo.play();
+    } catch(e) {
+      console.log("Could not play pip: " + e.message);
+    }
   }
   
   updateFocusState();
