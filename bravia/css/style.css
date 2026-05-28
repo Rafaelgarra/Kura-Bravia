@@ -109,15 +109,18 @@ body {
 .sidebar-logo {
   height: 120px;
   width: 100%;
-  display: flex;
-  align-items: center;
+  display: block;
   padding-left: 25px;
+  padding-top: 35px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  box-sizing: border-box;
 }
 
 .sidebar-logo-img {
   height: 50px;
-  min-width: 50px;
+  width: 50px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .sidebar-items {
@@ -126,21 +129,31 @@ body {
 }
 
 .sidebar-item {
-  display: flex;
-  align-items: center;
+  display: block;
   height: 76px;
   padding-left: 32px;
   color: #96A3B8;
   cursor: pointer;
   border-left: 4px solid transparent;
   width: 260px; /* Largura total interna para caber os textos */
+  box-sizing: border-box;
 }
 
 .sb-icon {
   font-size: 32px;
-  min-width: 40px;
+  width: 40px;
   margin-right: 25px;
   text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 76px;
+}
+
+.sb-icon svg {
+  width: 28px !important;
+  height: 28px !important;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .sb-label {
@@ -149,6 +162,9 @@ body {
   font-size: 20px;
   opacity: 0;
   white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 76px;
 }
 
 /* Exibe os textos quando expandido */
@@ -266,7 +282,6 @@ body {
 }
 
 .hero h1 {
-.hero h1 {
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
   font-size: 52px;
@@ -287,10 +302,12 @@ body {
 }
 
 .buttons {
-  display: flex;
+  display: block;
 }
 
 .btn {
+  display: inline-block;
+  vertical-align: middle;
   font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: 16px;
@@ -390,6 +407,7 @@ body {
 /* Card de Mídia */
 .card {
   display: inline-block;
+  vertical-align: top;
   width: 290px;
   height: 163px;
   border-radius: 12px;
@@ -417,8 +435,7 @@ body {
   height: 60px;
   background: linear-gradient(to top, rgba(2, 4, 8, 0.95), transparent);
   padding: 12px 15px;
-  display: flex;
-  align-items: flex-end;
+  box-sizing: border-box;
 }
 
 .card-title {
@@ -430,6 +447,11 @@ body {
   white-space: nowrap;
   width: 100%;
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  position: absolute;
+  bottom: 12px;
+  left: 15px;
+  right: 15px;
+  width: auto;
 }
 
 .card.focused {
@@ -842,6 +864,7 @@ body {
 /* Grid Cards (Exibidos em 4 Colunas) */
 .grid-card {
   display: inline-block;
+  vertical-align: top;
   width: 390px;
   height: 220px;
   border-radius: 12px;
@@ -870,8 +893,7 @@ body {
   height: 70px;
   background: linear-gradient(to top, rgba(2, 4, 8, 0.95), transparent);
   padding: 12px 18px;
-  display: flex;
-  align-items: flex-end;
+  box-sizing: border-box;
 }
 
 .grid-card-title {
@@ -883,6 +905,11 @@ body {
   white-space: nowrap;
   width: 100%;
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  position: absolute;
+  bottom: 12px;
+  left: 18px;
+  right: 18px;
+  width: auto;
 }
 
 .grid-card.focused {
