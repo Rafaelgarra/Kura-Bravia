@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<statusList>
+    <status name="viewing">
+        <statusItem field="source" value="ExtInput" />
+    </status>
+</statusList>

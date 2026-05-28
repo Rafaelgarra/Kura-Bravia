@@ -720,11 +720,10 @@ body {
 }
 
 .categories-title-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: block;
+  position: relative;
   margin-bottom: 20px;
-  width: 1650px;
+  width: 1700px;
 }
 
 .catalog-filter-btn {
@@ -738,9 +737,12 @@ body {
   padding: 10px 22px;
   cursor: pointer;
   transition: all 0.15s ease-out;
-  display: flex;
-  align-items: center;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  bottom: -5px;
   box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .catalog-filter-btn.focused {
@@ -751,6 +753,8 @@ body {
 }
 
 .catalog-filter-btn .btn-icon {
+  display: inline-block;
+  vertical-align: middle;
   margin-right: 8px;
 }
 
