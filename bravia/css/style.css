@@ -482,8 +482,8 @@ body {
   border-radius: 12px;
   margin-bottom: 30px;
   padding: 0 25px;
-  display: flex;
-  align-items: center;
+  display: block;
+  line-height: 70px;
 }
 
 .search-input-box.focused {
@@ -492,15 +492,21 @@ body {
 }
 
 .search-icon {
-  font-size: 28px;
-  color: #96A3B8;
-  margin-right: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 22px;
+  font-weight: 700;
+  color: #5FFBFF;
+  margin-right: 12px;
+  letter-spacing: 1px;
 }
 
 .search-placeholder {
+  display: inline-block;
+  vertical-align: middle;
   font-size: 22px;
   color: #96A3B8;
-  width: 100%;
+  max-width: 580px;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -513,11 +519,13 @@ body {
 
 .keyboard-row {
   margin-bottom: 12px;
-  clear: both;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .key {
-  float: left;
+  display: inline-block;
+  vertical-align: top;
   width: 56px;
   height: 56px;
   background-color: #0A0E17;
@@ -527,18 +535,19 @@ body {
   font-weight: 800;
   text-align: center;
   line-height: 56px;
-  margin-right: 12px;
+  margin-right: 11px;
+  margin-bottom: 0;
   border-radius: 8px;
   cursor: pointer;
 }
 
 .key.space {
-  width: 260px;
+  width: 270px;
 }
 
 .key.backspace, .key.clear {
-  width: 124px;
-  font-size: 16px;
+  width: 140px;
+  font-size: 15px;
 }
 
 .key.focused {
@@ -584,9 +593,9 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   margin-bottom: 15px;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
+  padding: 15px 20px;
+  display: block;
+  overflow: hidden;
 }
 
 .result-item.focused {
@@ -595,6 +604,8 @@ body {
 }
 
 .result-thumb {
+  display: inline-block;
+  vertical-align: middle;
   width: 140px;
   height: 80px;
   border-radius: 8px;
@@ -604,7 +615,9 @@ body {
 }
 
 .result-info {
-  flex: 1;
+  display: inline-block;
+  vertical-align: middle;
+  width: 600px;
 }
 
 .result-title {

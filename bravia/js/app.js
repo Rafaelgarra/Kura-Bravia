@@ -337,11 +337,16 @@ function updateFocusState() {
       }
       rail.style.transform = 'translate3d(' + offset + 'px, 0px, 0px)';
 
-      // B. Vertical rail scroll
+      // B. Vertical scroll — each section is 280px tall (270px height + 10px margin)
+      //    We shift the y-container so the focused row is always visible.
+      //    Row 0: no shift. Row 1: -280px. Row 2: -560px.
       var railsYContainer = getEl('rails-y-container');
-      var offsetY = - (AppState.gridRowIndex * 280);
-      railsYContainer.style.transform = 'translate3d(0px, ' + offsetY + 'px, 0px)';
-
+      var sectionH = 280;
+      var offsetY = 0;
+      if (AppState.gridRowIndex > 0) {
+        offsetY = -(AppState.gridRowIndex * sectionH);
+      }
+      railsYContainer.style.top = offsetY + 'px';
       updateHeroWithMedia(gridRows[AppState.gridRowIndex][AppState.gridColIndex]);
     }
   }
