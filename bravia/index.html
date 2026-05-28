@@ -5,7 +5,7 @@
   <title>Kura Streaming</title>
   <!-- Font imports with legacy browser support (Google Fonts) -->
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600,800|Orbitron:700,900|Noto+Sans+JP:700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=2" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
 <body>
 
@@ -271,7 +271,22 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/keyboard.js?v=2"></script>
-  <script src="js/app.js?v=2"></script>
+  <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+      var errText = "Global Error: " + message + " at " + source + ":" + lineno + (colno ? ":" + colno : "");
+      alert(errText);
+      var splash = document.getElementById('splash-screen');
+      if (splash) {
+        splash.style.display = 'block';
+        var splashContent = splash.querySelector('.splash-content');
+        if (splashContent) {
+          splashContent.innerHTML += '<div style="color:#ff5f5f; font-size:18px; margin-top:20px; text-align:left; background: rgba(0,0,0,0.85); padding:15px; border:2px solid red; font-family:monospace; word-wrap:break-word; z-index: 10000; position: relative;">' + errText + '</div>';
+        }
+      }
+      return false;
+    };
+  </script>
+  <script src="js/keyboard.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
 </body>
 </html>
