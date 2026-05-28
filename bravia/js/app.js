@@ -118,26 +118,53 @@ var subtitleData = [];
 var currentSubtitleIndex = -1;
 
 // ==========================================================================
-// INITIALISATION
+// INITIALISATION & ERROR HANDLING
 // ==========================================================================
+window.onerror = function(message, source, lineno, colno, error) {
+  var errText = "Global Error: " + message + " at " + source + ":" + lineno;
+  alert(errText);
+  var splash = document.getElementById('splash-screen');
+  if (splash) {
+    splash.style.display = 'block';
+    var splashContent = splash.querySelector('.splash-content');
+    if (splashContent) {
+      splashContent.innerHTML += '<div style="color:#ff5f5f; font-size:18px; margin-top:20px; text-align:left; background: rgba(0,0,0,0.85); padding:15px; border:2px solid red; font-family:monospace; word-wrap:break-word; z-index: 10000; position: relative;">' + errText + '</div>';
+    }
+  }
+  return false;
+};
+
 window.onload = function() {
   setTimeout(function() {
-    var splash = document.getElementById('splash-screen');
-    splash.style.display = 'none';
+    try {
+      var splash = document.getElementById('splash-screen');
+      if (splash) splash.style.display = 'none';
 
-    // Render all home rails
-    renderAllGrids();
+      // Render all home rails
+      renderAllGrids();
 
-    // Initialise virtual keyboard
-    VirtualKeyboard.init('virtual-keyboard', handleKeyboardPress);
+      // Initialise virtual keyboard
+      VirtualKeyboard.init('virtual-keyboard', handleKeyboardPress);
 
-    // Capture global directional input
-    document.onkeydown = handleKeyDown;
+      // Capture global directional input
+      document.onkeydown = handleKeyDown;
 
-    // Start focus on the sidebar (Home)
-    AppState.activeArea = 'sidebar';
-    AppState.sidebarIndex = 0;
-    updateFocusState();
+      // Start focus on the sidebar (Home)
+      AppState.activeArea = 'sidebar';
+      AppState.sidebarIndex = 0;
+      updateFocusState();
+    } catch (e) {
+      var errStr = "Init Error: " + e.message + " | Stack: " + e.stack;
+      alert(errStr);
+      var splash = document.getElementById('splash-screen');
+      if (splash) {
+        splash.style.display = 'block';
+        var splashContent = splash.querySelector('.splash-content');
+        if (splashContent) {
+          splashContent.innerHTML += '<div style="color:#ff5f5f; font-size:18px; margin-top:20px; text-align:left; background: rgba(0,0,0,0.85); padding:15px; border:2px solid red; font-family:monospace; word-wrap:break-word; z-index: 10000; position: relative;">' + errStr + '</div>';
+        }
+      }
+    }
   }, 1200);
 };
 
