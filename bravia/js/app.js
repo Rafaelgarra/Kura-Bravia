@@ -117,6 +117,15 @@ var heroTransitionTimeout = null;
 var subtitleData = [];
 var currentSubtitleIndex = -1;
 
+// DOM cache wrapper to minimize slow getElementById queries on older TV browsers
+var _domCache = {};
+function getEl(id) {
+  if (!_domCache[id]) {
+    _domCache[id] = document.getElementById(id);
+  }
+  return _domCache[id];
+}
+
 // ==========================================================================
 // INITIALISATION & ERROR HANDLING
 // ==========================================================================
@@ -142,6 +151,9 @@ window.onload = function() {
 
       // Render all home rails
       renderAllGrids();
+
+      // Initialize hero banner with the featured title
+      updateHeroWithMedia(MEDIA_CATALOG.featured);
 
       // Initialise virtual keyboard
       VirtualKeyboard.init('virtual-keyboard', handleKeyboardPress);
@@ -173,7 +185,7 @@ window.onload = function() {
 // ==========================================================================
 function renderAllGrids() {
   for (var r = 0; r < gridRows.length; r++) {
-    var rail = document.getElementById('rail-' + r);
+    var rail = getEl('rail-' + r);
     if (!rail) continue;
 
     var html = '';
@@ -191,7 +203,7 @@ function renderAllGrids() {
 
 // Updates the focus state of the catalog search shortcut button
 function renderCategoryFilters() {
-  var btnEl = document.getElementById('catalog-filter-btn');
+  var btnEl = getEl('catalog-filter-btn');
   if (!btnEl) return;
 
   if (AppState.activeArea === 'categories_btn') {
@@ -205,7 +217,7 @@ function renderCategoryFilters() {
 
 // Renders the 4-column media grid for the active category
 function renderCategoryGrid() {
-  var grid = document.getElementById('categories-items-grid');
+  var grid = getEl('categories-items-grid');
   if (!grid) return;
 
   var items = getFilteredCategoryItems();
@@ -266,7 +278,7 @@ function updateFocusState() {
     allFocused[i].className = allFocused[i].className.replace(' focused', '');
   }
 
-  var sidebarEl = document.getElementById('sidebar-menu');
+  var sidebarEl = getEl('sidebar-menu');
   var area = AppState.activeArea;
 
   // 1. Sidebar expand/collapse control
@@ -283,7 +295,7 @@ function updateFocusState() {
   // 2. Sidebar active item visual update
   var menuIds = ['sb-home', 'sb-animes', 'sb-series', 'sb-filmes', 'sb-search'];
   for (var m = 0; m < menuIds.length; m++) {
-    var el = document.getElementById(menuIds[m]);
+    var el = getEl(menuIds[m]);
     if (el) el.className = el.className.replace(' active', '');
   }
 
@@ -293,18 +305,18 @@ function updateFocusState() {
   else if (AppState.currentTab === 'movies') activeMenuId = 'sb-filmes';
   else if (AppState.currentTab === 'search') activeMenuId = 'sb-search';
 
-  var activeMenuEl = document.getElementById(activeMenuId);
+  var activeMenuEl = getEl(activeMenuId);
   if (activeMenuEl) activeMenuEl.className += ' active';
 
   // 3. Highlight the focused element in the active area
   if (area === 'sidebar') {
     var targetId = menuIds[AppState.sidebarIndex];
-    var targetEl = document.getElementById(targetId);
+    var targetEl = getEl(targetId);
     if (targetEl) targetEl.className += ' focused';
   } 
   else if (area === 'hero') {
-    var heroPlayBtn = document.getElementById('hero-btn-play');
-    var heroListBtn = document.getElementById('hero-btn-list');
+    var heroPlayBtn = getEl('hero-btn-play');
+    var heroListBtn = getEl('hero-btn-list');
     if (AppState.heroIndex === 0 && heroPlayBtn) {
       heroPlayBtn.className += ' focused';
     } else if (AppState.heroIndex === 1 && heroListBtn) {
@@ -313,12 +325,12 @@ function updateFocusState() {
   } 
   else if (area === 'grid') {
     var cardId = 'card-r' + AppState.gridRowIndex + '-c' + AppState.gridColIndex;
-    var card = document.getElementById(cardId);
+    var card = getEl(cardId);
     if (card) {
       card.className += ' focused';
 
       // A. Horizontal rail scroll
-      var rail = document.getElementById('rail-' + AppState.gridRowIndex);
+      var rail = getEl('rail-' + AppState.gridRowIndex);
       var offset = 0;
       if (AppState.gridColIndex >= 4) {
         offset = - ((AppState.gridColIndex - 3) * 310);
@@ -326,7 +338,7 @@ function updateFocusState() {
       rail.style.transform = 'translate3d(' + offset + 'px, 0px, 0px)';
 
       // B. Vertical rail scroll
-      var railsYContainer = document.getElementById('rails-y-container');
+      var railsYContainer = getEl('rails-y-container');
       var offsetY = - (AppState.gridRowIndex * 280);
       railsYContainer.style.transform = 'translate3d(0px, ' + offsetY + 'px, 0px)';
 
@@ -341,20 +353,20 @@ function updateFocusState() {
   }
   else if (area === 'categories_grid') {
     var gridCardId = 'grid-card-r' + AppState.catGridRow + '-c' + AppState.catGridCol;
-    var gridCard = document.getElementById(gridCardId);
+    var gridCard = getEl(gridCardId);
     if (gridCard) {
       gridCard.className += ' focused';
 
       // Vertical scroll for the category grid (card height 220px + margin 30px)
-      var catGrid = document.getElementById('categories-items-grid');
+      var catGrid = getEl('categories-items-grid');
       var offsetCatY = - (AppState.catGridRow * 250);
       catGrid.style.transform = 'translate3d(0px, ' + offsetCatY + 'px, 0px)';
     }
   } 
   else if (area === 'details') {
-    var pip = document.getElementById('details-pip-player');
-    var cAudio = document.getElementById('combo-audio');
-    var cSubtitle = document.getElementById('combo-subtitle');
+    var pip = getEl('details-pip-player');
+    var cAudio = getEl('combo-audio');
+    var cSubtitle = getEl('combo-subtitle');
     
     if (AppState.detailsFocusIndex === 0 && pip) pip.className += ' focused';
     else if (AppState.detailsFocusIndex === 1 && cAudio) cAudio.className += ' focused';
@@ -364,7 +376,7 @@ function updateFocusState() {
     renderSelectionModal();
   }
   else if (area === 'search_box') {
-    var searchBox = document.getElementById('search-box');
+    var searchBox = getEl('search-box');
     if (searchBox) searchBox.className += ' focused';
   } 
   else if (area === 'keyboard') {
@@ -380,8 +392,8 @@ function updateFocusState() {
 function updateHeroWithMedia(media) {
   if (!media) return;
   
-  var wrapper = document.getElementById('hero-details-wrapper');
-  var poster = document.getElementById('hero-poster');
+  var wrapper = getEl('hero-details-wrapper');
+  var poster = getEl('hero-poster');
   
   if (wrapper) wrapper.style.opacity = '0';
   if (poster) poster.style.opacity = '0';
@@ -389,15 +401,15 @@ function updateHeroWithMedia(media) {
   if (heroTransitionTimeout) clearTimeout(heroTransitionTimeout);
   
   heroTransitionTimeout = setTimeout(function() {
-    var heroTitle = document.getElementById('hero-title');
-    var heroDesc = document.getElementById('hero-description');
-    var heroPoster = document.getElementById('hero-poster');
-    var heroEyebrow = document.getElementById('hero-eyebrow');
+    var heroTitle = getEl('hero-title');
+    var heroDesc = getEl('hero-description');
+    var heroPoster = getEl('hero-poster');
+    var heroEyebrow = getEl('hero-eyebrow');
 
     if (heroTitle) heroTitle.innerHTML = media.title;
     if (heroDesc) heroDesc.innerHTML = 'Year: ' + media.year + ' · Rating: ★ ' + (media.rating || '9.0') + ' · Kura Local Media.';
     if (heroPoster) {
-      var img = document.getElementById('hero-poster-img');
+      var img = getEl('hero-poster-img');
       if (img) {
         img.style.display = 'block';
         img.src = media.backdrop;
@@ -420,18 +432,18 @@ function openDetailsPage(media) {
   AppState.detailsFocusIndex = 0; // focus PiP player first
 
   // Populate details screen
-  document.getElementById('details-title').innerHTML = media.title;
-  document.getElementById('details-year').innerHTML = media.year;
-  document.getElementById('details-rating').innerHTML = '★ ' + (media.rating || '9.0');
-  document.getElementById('details-genres').innerHTML = media.genres ? media.genres.join(', ') : 'General';
-  document.getElementById('details-description').innerHTML = 'Watch now in local high definition. This title was catalogued by the high-performance Kura server. Full audio and subtitle options available for your Bravia client.';
+  getEl('details-title').innerHTML = media.title;
+  getEl('details-year').innerHTML = media.year;
+  getEl('details-rating').innerHTML = '\u2605 ' + (media.rating || '9.0');
+  getEl('details-genres').innerHTML = media.genres ? media.genres.join(', ') : 'General';
+  getEl('details-description').innerHTML = 'Watch now in local high definition. This title was catalogued by the high-performance Kura server. Full audio and subtitle options available for your Bravia client.';
 
-  document.getElementById('details-eyebrow').innerHTML = media.genres ? media.genres[0].toUpperCase() : 'MEDIA';
+  getEl('details-eyebrow').innerHTML = media.genres ? media.genres[0].toUpperCase() : 'MEDIA';
 
   // Backdrop background (frame from selected title)
-  var backdropEl = document.getElementById('details-backdrop');
+  var backdropEl = getEl('details-backdrop');
   if (backdropEl) {
-    var img = document.getElementById('details-backdrop-img');
+    var img = getEl('details-backdrop-img');
     if (img) {
       img.style.display = 'block';
       img.src = media.backdrop;
@@ -441,16 +453,16 @@ function openDetailsPage(media) {
   // Reset combos to defaults
   AppState.audioIndex = 0;
   AppState.subtitleIndex = 0;
-  document.getElementById('val-audio').innerHTML = audioOptions[0];
-  document.getElementById('val-subtitle').innerHTML = subtitleOptions[0];
+  getEl('val-audio').innerHTML = audioOptions[0];
+  getEl('val-subtitle').innerHTML = subtitleOptions[0];
 
   // Hide all views and activate details
   hideAllViews();
-  document.getElementById('view-details').className = 'view active';
+  getEl('view-details').className = 'view active';
 
   // Start the PiP mini player
-  var pipVideo = document.getElementById('kuraPipPlayer');
-  var pipSource = document.getElementById('pipSource');
+  var pipVideo = getEl('kuraPipPlayer');
+  var pipSource = getEl('pipSource');
   if (pipVideo && pipSource) {
     pipVideo.pause();
     pipSource.setAttribute('src', media.videoUrl);
@@ -463,17 +475,17 @@ function openDetailsPage(media) {
 
 function closeDetailsPage() {
   // Stop PiP and close modal
-  var pipVideo = document.getElementById('kuraPipPlayer');
+  var pipVideo = getEl('kuraPipPlayer');
   if (pipVideo) pipVideo.pause();
-  document.getElementById('selection-modal').style.display = 'none';
+  getEl('selection-modal').style.display = 'none';
 
   // Restore previous view
   hideAllViews();
   if (AppState.currentTab === 'home') {
-    document.getElementById('view-home').className = 'view active';
+    getEl('view-home').className = 'view active';
     AppState.activeArea = 'grid';
   } else if (AppState.currentTab === 'search') {
-    document.getElementById('view-search').className = 'view active';
+    getEl('view-search').className = 'view active';
     renderSearchFilters();
     executeSearch();
     var results = getFilteredResults();
@@ -483,7 +495,7 @@ function closeDetailsPage() {
       AppState.activeArea = 'search_box';
     }
   } else {
-    document.getElementById('view-categories').className = 'view active';
+    getEl('view-categories').className = 'view active';
     renderCategoryFilters();
     renderCategoryGrid();
     var items = getFilteredCategoryItems();
@@ -497,10 +509,10 @@ function closeDetailsPage() {
 }
 
 function hideAllViews() {
-  document.getElementById('view-home').className = 'view';
-  document.getElementById('view-search').className = 'view';
-  document.getElementById('view-categories').className = 'view';
-  document.getElementById('view-details').className = 'view';
+  getEl('view-home').className = 'view';
+  getEl('view-search').className = 'view';
+  getEl('view-categories').className = 'view';
+  getEl('view-details').className = 'view';
 }
 
 // ==========================================================================
@@ -516,8 +528,8 @@ function openSelectionModal(type) {
 }
 
 function renderSelectionModal() {
-  var titleEl = document.getElementById('modal-title-text');
-  var listEl = document.getElementById('modal-options-list');
+  var titleEl = getEl('modal-title-text');
+  var listEl = getEl('modal-options-list');
   if (!titleEl || !listEl) return;
   
   titleEl.innerHTML = AppState.modalType === 'audio' ? 'Select Audio' : 'Select Subtitle';
@@ -541,12 +553,12 @@ function renderSelectionModal() {
     html += '</div>';
   }
   listEl.innerHTML = html;
-  document.getElementById('selection-modal').style.display = 'block';
+  getEl('selection-modal').style.display = 'block';
 }
 
 function handleModalNavigation(key) {
   if (key === 8 || key === 461) { // BACKSPACE -> close modal without saving
-    document.getElementById('selection-modal').style.display = 'none';
+    getEl('selection-modal').style.display = 'none';
     AppState.activeArea = 'details';
     updateFocusState();
     return;
@@ -567,15 +579,15 @@ function handleModalNavigation(key) {
   else if (key === 13) { // ENTER -> save choice and close
     if (AppState.modalType === 'audio') {
       AppState.audioIndex = AppState.modalFocusIndex;
-      var valAudio = document.getElementById('val-audio');
+      var valAudio = getEl('val-audio');
       if (valAudio) valAudio.innerHTML = audioOptions[AppState.audioIndex];
     } else {
       AppState.subtitleIndex = AppState.modalFocusIndex;
-      var valSub = document.getElementById('val-subtitle');
+      var valSub = getEl('val-subtitle');
       if (valSub) valSub.innerHTML = subtitleOptions[AppState.subtitleIndex];
     }
     
-    document.getElementById('selection-modal').style.display = 'none';
+    getEl('selection-modal').style.display = 'none';
     AppState.activeArea = 'details';
     updateFocusState();
   }
@@ -622,7 +634,7 @@ function handleSidebarNavigation(key) {
     selectActiveSidebarTab();
   }
   else if (key === 39) { // RIGHT -> return to the active tab body
-    if (document.getElementById('view-details').className.indexOf('active') !== -1) {
+    if (getEl('view-details').className.indexOf('active') !== -1) {
       AppState.activeArea = 'details';
     } else {
       if (AppState.currentTab === 'home') AppState.activeArea = 'hero';
@@ -641,11 +653,11 @@ function selectActiveSidebarTab() {
   hideAllViews();
   
   if (tab === 'home') {
-    document.getElementById('view-home').className = 'view active';
+    getEl('view-home').className = 'view active';
     AppState.activeArea = 'hero';
   } 
   else if (tab === 'search') {
-    document.getElementById('view-search').className = 'view active';
+    getEl('view-search').className = 'view active';
     AppState.activeArea = 'search_box';
     AppState.selectedSearchTypeIdx = 0;
     AppState.selectedSearchGenreIdx = 0;
@@ -654,7 +666,7 @@ function selectActiveSidebarTab() {
     AppState.searchFilterRowIndex = 0;
     AppState.searchFilterColIndex = 0;
     searchQuery = "";
-    var textEl = document.getElementById('search-input-text');
+    var textEl = getEl('search-input-text');
     if (textEl) {
       textEl.innerHTML = "Digite para buscar...";
       textEl.style.color = '#96A3B8';
@@ -664,8 +676,8 @@ function selectActiveSidebarTab() {
   }
   else {
     // Dedicated catalog tabs: 'animes', 'series', 'movies'
-    document.getElementById('view-categories').className = 'view active';
-    var titleEl = document.getElementById('categories-title');
+    getEl('view-categories').className = 'view active';
+    var titleEl = getEl('categories-title');
     if (tab === 'animes') {
       AppState.selectedCategoryType = 'anime';
       if (titleEl) titleEl.innerHTML = 'Catalog: Anime';
@@ -796,14 +808,14 @@ function handleCategoriesBtnNavigation(key) {
     AppState.searchFilterColIndex = targetTypeIdx;
     searchQuery = "";
 
-    var textEl = document.getElementById('search-input-text');
+    var textEl = getEl('search-input-text');
     if (textEl) {
       textEl.innerHTML = "Type to search...";
       textEl.style.color = '#96A3B8';
     }
 
     hideAllViews();
-    document.getElementById('view-search').className = 'view active';
+    getEl('view-search').className = 'view active';
 
     renderSearchFilters();
     executeSearch();
@@ -906,7 +918,7 @@ function handleDetailsNavigation(key) {
   if (key === 13) {
     if (fIdx === 0) {
       // Expand PiP to full screen
-      var pipVideo = document.getElementById('kuraPipPlayer');
+      var pipVideo = getEl('kuraPipPlayer');
       var currentTime = 0;
       if (pipVideo) {
         currentTime = pipVideo.currentTime;
@@ -1084,7 +1096,7 @@ function handleSearchResultsNavigation(key) {
 }
 
 function renderSearchFilters() {
-  var container = document.getElementById('search-filters-container');
+  var container = getEl('search-filters-container');
   if (!container) return;
 
   var html = '';
@@ -1156,7 +1168,7 @@ function renderSearchFilters() {
 // SEARCH MODULE
 // ==========================================================================
 function handleKeyboardPress(action) {
-  var textEl = document.getElementById('search-input-text');
+  var textEl = getEl('search-input-text');
 
   if (action === 'BACKSPACE') {
     if (searchQuery.length > 0) searchQuery = searchQuery.substring(0, searchQuery.length - 1);
@@ -1255,7 +1267,7 @@ function getFilteredResults() {
 }
 
 function executeSearch() {
-  var listContainer = document.getElementById('search-results-list');
+  var listContainer = getEl('search-results-list');
   var results = getFilteredResults();
 
   if (searchQuery.length === 0 && AppState.selectedSearchTypeIdx === 0 && AppState.selectedSearchGenreIdx === 0 && AppState.selectedSearchYearIdx === 0 && AppState.selectedSearchNatIdx === 0) {
@@ -1286,10 +1298,10 @@ function executeSearch() {
 // FULL-SCREEN VIDEO PLAYER & SUBTITLE SYNC
 // ==========================================================================
 function playVideo(videoUrl, title, startTime) {
-  var playerView = document.getElementById('view-player');
-  var video = document.getElementById('kuraPlayer');
-  var source = document.getElementById('playerSource');
-  var titleEl = document.getElementById('player-media-title');
+  var playerView = getEl('view-player');
+  var video = getEl('kuraPlayer');
+  var source = getEl('playerSource');
+  var titleEl = getEl('player-media-title');
   
   titleEl.innerHTML = title;
   
@@ -1312,7 +1324,7 @@ function playVideo(videoUrl, title, startTime) {
   
   subtitleData = [];
   currentSubtitleIndex = -1;
-  document.getElementById('subtitles').innerHTML = '';
+  getEl('subtitles').innerHTML = '';
   
   // Load subtitles based on selected option
   if (AppState.subtitleIndex !== 2) { // 2 = No Subtitles
@@ -1326,7 +1338,7 @@ function playVideo(videoUrl, title, startTime) {
 }
 
 function handlePlayerControl(key) {
-  var video = document.getElementById('kuraPlayer');
+  var video = getEl('kuraPlayer');
   showPlayerControls();
   
   if (key === 8 || key === 27 || key === 461) {
@@ -1353,13 +1365,13 @@ function handlePlayerControl(key) {
 }
 
 function showPlayerControls() {
-  var controls = document.getElementById('player-controls');
+  var controls = getEl('player-controls');
   if (controls) controls.className = 'player-controls';
   
   if (playerControlsTimeout) clearTimeout(playerControlsTimeout);
   playerControlsTimeout = setTimeout(function() {
     if (AppState.activeArea === 'player') {
-      var video = document.getElementById('kuraPlayer');
+      var video = getEl('kuraPlayer');
       if (!video.paused) {
         controls.className = 'player-controls hidden';
       }
@@ -1368,10 +1380,10 @@ function showPlayerControls() {
 }
 
 function updatePlaybackProgress() {
-  var video = document.getElementById('kuraPlayer');
-  var progress = document.getElementById('player-progress');
-  var current = document.getElementById('player-current-time');
-  var total = document.getElementById('player-total-time');
+  var video = getEl('kuraPlayer');
+  var progress = getEl('player-progress');
+  var current = getEl('player-current-time');
+  var total = getEl('player-total-time');
   
   if (!video || !video.duration) return;
   
@@ -1394,8 +1406,8 @@ function formatTime(sec) {
 }
 
 function closePlayer() {
-  var video = document.getElementById('kuraPlayer');
-  var playerView = document.getElementById('view-player');
+  var video = getEl('kuraPlayer');
+  var playerView = getEl('view-player');
   var playbackTime = 0;
   
   if (video) {
@@ -1410,9 +1422,9 @@ function closePlayer() {
   // Retorna para a tela de detalhes e sincroniza o PiP
   AppState.activeArea = 'details';
   hideAllViews();
-  document.getElementById('view-details').className = 'view active';
+  getEl('view-details').className = 'view active';
   
-  var pipVideo = document.getElementById('kuraPipPlayer');
+  var pipVideo = getEl('kuraPipPlayer');
   if (pipVideo) {
     try {
       pipVideo.currentTime = playbackTime;
@@ -1482,7 +1494,7 @@ function syncSubtitles(currentTime) {
     }
   }
   
-  var subContainer = document.getElementById('subtitles');
+  var subContainer = getEl('subtitles');
   if (subContainer && subContainer.innerHTML !== text) {
     subContainer.innerHTML = text;
   }
