@@ -5,7 +5,7 @@
   <title>Kura Streaming</title>
   <!-- Font imports with legacy browser support (Google Fonts) -->
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600,800|Orbitron:700,900|Noto+Sans+JP:700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="stylesheet" href="css/style.css?v=4" />
 </head>
 <body>
 
@@ -272,8 +272,34 @@
 
   <!-- Scripts -->
   <script>
+    // Remote logging utility
+    function remoteLog(path, query) {
+      try {
+        var img = new Image();
+        img.src = path + "?t=" + new Date().getTime() + "&" + query;
+      } catch(e) {}
+    }
+
+    // Log browser info on startup
+    remoteLog("/log_browser_ua", "ua=" + encodeURIComponent(navigator.userAgent));
+
+    // Log supported features
+    try {
+      var features = [
+        "querySelectorAll:" + (typeof document.querySelectorAll),
+        "addEventListener:" + (typeof window.addEventListener),
+        "JSON:" + (typeof JSON),
+        "flex:" + (typeof document.body.style.flex !== 'undefined' || typeof document.body.style.webkitFlex !== 'undefined')
+      ].join(" | ");
+      remoteLog("/log_browser_features", "info=" + encodeURIComponent(features));
+    } catch(e) {}
+
     window.onerror = function(message, source, lineno, colno, error) {
       var errText = "Global Error: " + message + " at " + source + ":" + lineno + (colno ? ":" + colno : "");
+      
+      // Send error to Python console
+      remoteLog("/log_browser_error", "msg=" + encodeURIComponent(errText));
+
       alert(errText);
       var splash = document.getElementById('splash-screen');
       if (splash) {
@@ -286,7 +312,7 @@
       return false;
     };
   </script>
-  <script src="js/keyboard.js?v=3"></script>
-  <script src="js/app.js?v=3"></script>
+  <script src="js/keyboard.js?v=4"></script>
+  <script src="js/app.js?v=4"></script>
 </body>
 </html>
