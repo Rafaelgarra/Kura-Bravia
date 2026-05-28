@@ -742,7 +742,6 @@ body {
 
 .categories-title-container {
   display: block;
-  position: relative;
   margin-bottom: 20px;
   width: 1700px;
 }
@@ -752,16 +751,14 @@ body {
   font-weight: 700;
   font-size: 15px;
   color: #EDEDED;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.25);
   border-radius: 12px;
   padding: 10px 22px;
   cursor: pointer;
   transition: all 0.15s ease-out;
   display: inline-block;
-  position: absolute;
-  right: 0;
-  bottom: -5px;
+  vertical-align: middle;
   box-sizing: border-box;
   white-space: nowrap;
 }
@@ -785,6 +782,9 @@ body {
   font-weight: 700;
   color: #EDEDED;
   margin-bottom: 0px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 25px;
 }
 
 .filters-group {
