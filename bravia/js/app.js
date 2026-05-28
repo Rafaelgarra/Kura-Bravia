@@ -518,7 +518,7 @@ function renderSelectionModal() {
 }
 
 function handleModalNavigation(key) {
-  if (key === 8) { // BACKSPACE -> close modal without saving
+  if (key === 8 || key === 461) { // BACKSPACE -> close modal without saving
     document.getElementById('selection-modal').style.display = 'none';
     AppState.activeArea = 'details';
     updateFocusState();
@@ -832,7 +832,7 @@ function handleCategoriesGridNavigation(key) {
 
 // 6. Details Page Navigation (PiP Player + Combos)
 function handleDetailsNavigation(key) {
-  if (key === 8) { // BACKSPACE -> close details
+  if (key === 8 || key === 461) { // BACKSPACE -> close details
     closeDetailsPage();
     return;
   }
@@ -1298,7 +1298,7 @@ function handlePlayerControl(key) {
   var video = document.getElementById('kuraPlayer');
   showPlayerControls();
   
-  if (key === 8 || key === 27) {
+  if (key === 8 || key === 27 || key === 461) {
     closePlayer();
   } 
   else if (key === 13 || key === 32) {
@@ -1371,7 +1371,7 @@ function closePlayer() {
   // Retorna para a tela de detalhes e sincroniza o PiP
   AppState.activeArea = 'details';
   hideAllViews();
-  document.getElementById('view-details').style.display = 'block';
+  document.getElementById('view-details').className = 'view active';
   
   var pipVideo = document.getElementById('kuraPipPlayer');
   if (pipVideo) {
